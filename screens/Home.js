@@ -4,8 +4,10 @@ import {
     Text,
     StyleSheet,
     Image,
+    FlatList,
+    TouchableOpacity
 } from 'react-native';
-import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
+
 
 // Constants
 import { COLORS, FONTS, icons, images, SIZES } from '../constants'
@@ -23,21 +25,44 @@ const Home = () => {
         {
             id: 1,
             name: 'Plant 2',
-            img: images.plant1,
+            img: images.plant2,
             favoris: true
         },
         {
             id: 2,
             name: 'Plant 3',
-            img: images.plant1,
+            img: images.plant3,
             favoris: false
         },
         {
             id: 3,
             name: 'Plant 4',
-            img: images.plant1,
+            img: images.plant4,
             favoris: false
         }
+    ])
+
+    const [friendList, setFriendList] = React.useState ([
+        {
+            id:0,
+            img: images.profile1 
+        },
+        {
+            id:1,
+            img: images.profile2 
+        },
+        {
+            id:2,
+            img: images.profile3 
+        },
+        {
+            id:3,
+            img: images.profile4 
+        },
+        {
+            id:4,
+            img: images.profile4 
+        },
     ])
 
     // render
@@ -54,8 +79,96 @@ const Home = () => {
                         borderRadius: 15
                     }}
                 />
+                <View
+                    style={{
+                        position: "absolute",
+                        bottom: "17%",
+                        right: 0,
+                        backgroundColor: COLORS.primary,
+                        paddingHorizontal: SIZES.base,
+                        borderTopLeftRadius: 10,
+                        borderBottomLeftRadius: 10,
+                    }}
+                >
+                    <Text style={{color: COLORS.white}}>{item.name}</Text>
+                </View>
+
+                {/* Bouton Heart  */}
+                    <View
+                    style={{
+                        position: 'absolute',
+                        top: '15%',
+                        left: 7,
+                    }}
+                    onPress={() => console.log('Hello')}
+                >
+                    <Image 
+                        source={item.favourite ? icons.heartRed : icons.heartGreenOutline}
+                            resizeMode="contain"
+                            style={{
+                                width: 20,
+                                height: 20,
+                            }}
+                    />
+                    </View>
             </View>
         )
+    }
+
+    function renderFriendsComponent(){
+        if(friendList.length == 0) {
+            return (
+                <View></View>
+            )
+        } else if(friendList.length <= 3){
+            return(
+                friendList.map((item, index) => (
+                    <View
+                        key={`friend-${index}`}
+                        style={index == 0 ? {} : {marginLeft: -20 }}
+                    >
+                        <Image 
+                            source={item.img}
+                            resizeMode="cover"
+                            style={{
+                                width: 50,
+                                height: 50,
+                                borderRadius: 25,
+                                borderWidth: 3,
+                                borderColor: COLORS.primary
+                            }}
+                        />
+                    </View>
+                ))
+            )
+        } else {
+            return (
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    {friendList.map((item, index) => {
+                        if (index <= 2) {
+                            return (
+                                <View  
+                                    key={`friend-${index}`}
+                                    style={index == 0 ? {} : {marginLeft: -20 }}>
+                                    <Image 
+                                        source={item.img}
+                                        resizeMethod="cover"
+                                        style={{
+                                            width: 50,
+                                            height: 50,
+                                            borderRadius: 25,
+                                            borderWidth: 3,
+                                            borderColor: COLORS.primary
+                                        }}
+                                    />
+                                </View>
+                            )
+                        }
+                    })}
+                    <Text style={{ marginLeft: 5, color:  COLORS.secondary }}>+{friendList.length - 3} More</Text>
+                </View>
+            )
+        }
     }
 
     return (
@@ -103,11 +216,123 @@ const Home = () => {
 
             {/* Today's Share */}
             <View style={{ height: '50%', backgroundColor: COLORS.lightGray}}>
+                <View 
+                style={{
+                    flex: 1,
+                    borderBottomLeftRadius: 50,
+                    borderBottomRightRadius: 50,
+                    backgroundColor: COLORS.white
+                }}
+                >
+                <View style={{ marginTop: SIZES.font, marginHorizontal: SIZES.padding }}>
+                    <View style={{ flexDirection: 'row', alignItems:'center', justifyContent: 'space-between'}}>
+                        <Text style={{ color: COLORS.secondary}}>L'action d'aujourd'hui</Text>
+                        <TouchableOpacity
+                            onPress={() => {console.log("See All on pressed")}}
+                        >
+                            <Text style={{ color: COLORS.secondary}}>Tous voir</Text>
+                        </TouchableOpacity>
+                        </View>
+                    
 
+                    {/* Bloc principal */}
+                    <View style={{ flexDirection: 'row', height: '88%', marginTop: SIZES.base}}>
+
+                        {/* Bloc de gauche */}
+                        <View style={{ flex: 1 }}>
+                            <TouchableOpacity 
+                                style={{ flex: 1 }}
+                                onPress={() => { console.log('Pressed')}}
+                            >
+                                <Image 
+                                    source={images.plant5}
+                                    resizeMode="cover"
+                                    style={{
+                                        width: '100%',
+                                        height: '100%',
+                                        borderRadius: 20
+                                    }}
+                                />
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                                style={{ flex: 1, marginTop: SIZES.font }}
+                                onPress={() => { console.log('Pressed')}}
+                            >
+                                <Image 
+                                    source={images.plant6}
+                                    resizeMode="cover"
+                                    style={{
+                                        width: '100%',
+                                        height: '100%',
+                                        borderRadius: 20
+                                    }}
+                                />
+                            </TouchableOpacity>
+                        </View>
+
+                        {/* Bloc de droite */}
+                        <View style={{ flex: 1.3 }}>
+                            <TouchableOpacity
+                                style={{ flex: 1, marginLeft: SIZES.font}}
+                                onPress={() => { console.log("Plant on pressed")}}
+                            >
+                                <Image 
+                                    source={images.plant7}
+                                    style={{
+                                        width: '100%',
+                                        height: '100%',
+                                        borderRadius: 20
+                                    }}
+                                />
+                            </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                </View>
             </View>
 
             {/* Added Friend */}
-            <View style={{ height:'20%', backgroundColor: COLORS.lightGray }}></View>
+            <View style={{ height:'20%', backgroundColor: COLORS.lightGray }}>
+                <View style={{ flex: 1, backgroundColor: COLORS.lightGray}}>
+                    <View style={{ marginTop: SIZES.radius, marginHorizontal: SIZES.padding }}>
+                        <Text style={{ color: COLORS.secondary, ...FONTS.h2}}>Ajout d'amis</Text>
+                        <Text style={{ color: COLORS.secondary}}>Total {friendList.length}</Text>
+                        
+                        <View style={{ flexDirection: 'row', height: '60%'}}>
+                            {/* Friends */}
+                            <View style={{ flex: 1.3, flexDirection: 'row', alignItems: 'center' }}>
+                                {renderFriendsComponent()}
+                            </View>
+
+                            {/* Ajout d'amis */}
+                            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent:'flex-end'}}>
+                                <Text style={{ color: COLORS.secondary}}>Nouvel ajout</Text>
+                                <TouchableOpacity
+                                    style={{
+                                        marginLeft: SIZES.base,
+                                        width: 40,
+                                        height: 40,
+                                        borderRadius: 10,
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        backgroundColor: COLORS.gray
+                                    }}
+                                    onPress={() => {console.log("Add friend on pressed")}}
+                                >
+                                    <Image 
+                                        source={icons.plus}
+                                        resizeMode="contain"
+                                        style={{
+                                            width: 20,
+                                            height: 20
+                                        }}
+                                    />
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+            </View>
         </View>
     )
 }
