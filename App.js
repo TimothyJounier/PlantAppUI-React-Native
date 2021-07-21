@@ -7,6 +7,7 @@ import { PlantDetail } from './screens';
 
 // Tabs
 import Tabs from './navigation/tabs';
+import Authentification from './screens/Authentification';
 
 const Stack = createStackNavigator();
 
@@ -17,13 +18,14 @@ const App = () => {
         screenOptions={{
           headerShown: false
         }}
-        initialRouteName={'Home'}
+        initialRouteName={'Authentification'}
       >
         {/* Tabs */}
         <Stack.Screen name='Home' component={Tabs}  />
 
         {/* Screens */}
         <Stack.Screen name='PlantDetail' component={PlantDetail} options={{ headerShown: false}}  />
+        <Stack.Screen name='Authentification' component={Authentification} options={{ headerShown: false}}  />
 
       </Stack.Navigator>
     </NavigationContainer>

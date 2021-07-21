@@ -1,3 +1,4 @@
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import {
     View,
@@ -12,7 +13,7 @@ import {
 // Constants
 import { COLORS, FONTS, icons, images, SIZES } from '../constants'
 
-const Home = () => {
+const Home = ({ navigation }) => {
 
     // Dummy Data
     const [newPlants, setNewPlants] = React.useState([
@@ -152,7 +153,7 @@ const Home = () => {
                                     style={index == 0 ? {} : {marginLeft: -20 }}>
                                     <Image 
                                         source={item.img}
-                                        resizeMethod="cover"
+                                        resizeMode="cover"
                                         style={{
                                             width: 50,
                                             height: 50,
@@ -165,7 +166,7 @@ const Home = () => {
                             )
                         }
                     })}
-                    <Text style={{ marginLeft: 5, color:  COLORS.secondary }}>+{friendList.length - 3} More</Text>
+                    <Text style={{ marginLeft: 5, color:  COLORS.secondary, ...FONTS.h2 }}>+{friendList.length - 3} More</Text>
                 </View>
             )
         }
@@ -242,7 +243,7 @@ const Home = () => {
                         <View style={{ flex: 1 }}>
                             <TouchableOpacity 
                                 style={{ flex: 1 }}
-                                onPress={() => { console.log('Pressed')}}
+                                onPress={() => { navigation.navigate("PlantDetail")}}
                             >
                                 <Image 
                                     source={images.plant5}
@@ -256,7 +257,7 @@ const Home = () => {
                             </TouchableOpacity>
                             <TouchableOpacity 
                                 style={{ flex: 1, marginTop: SIZES.font }}
-                                onPress={() => { console.log('Pressed')}}
+                                onPress={() => { navigation.navigate("PlantDetail")}}
                             >
                                 <Image 
                                     source={images.plant6}
@@ -274,7 +275,7 @@ const Home = () => {
                         <View style={{ flex: 1.3 }}>
                             <TouchableOpacity
                                 style={{ flex: 1, marginLeft: SIZES.font}}
-                                onPress={() => { console.log("Plant on pressed")}}
+                                onPress={() => { navigation.navigate("PlantDetail")}}
                             >
                                 <Image 
                                     source={images.plant7}
